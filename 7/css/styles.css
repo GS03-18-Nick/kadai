@@ -1,0 +1,203 @@
+/* ===================
+
+MAIN FORMATTING 
+
+================ */
+
+*. *:after,
+*:before {
+  box-sizing: border-box;
+}
+
+html {
+  font: 16px/1.5 'lato', sans-serif;
+}
+
+p,
+label {
+  display: block;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+header,
+section,
+main {
+  width: 100%;
+}
+
+button {
+  border: none;
+  box-shadow: none;
+}
+
+
+/* ==================
+
+FORMATTING
+
+============== */
+
+.container {
+  margin: 0 auto;
+  position: relative;
+}
+
+.row {
+  position: relative;
+  text-align: center;
+}
+
+.col {
+  display: inline-block;
+  vertical-align: top;
+  margin-right: -5px;
+  width: 90%;
+}
+
+.vertical-center {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.desktop-only {
+  display: none;
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+@media screen and (min-width: 770px) {
+  .container {
+    max-width: 960px;
+  }
+  
+  .align-left {
+    text-align: left;
+  }
+  .align-right {
+    text-align: right;
+  }
+  .mobile-only {
+    display: none;
+  }
+  .col-1-2 {
+    width: 50%;
+  }
+  .col-1-3 {
+    width: 33.333333%;
+  }
+  .col-2-3 {
+    width: 66.666666%;
+  }
+  .col-1-4 {
+    width: 25%;
+  }
+  .col-3-4 {
+    width: 75%;
+  }
+  h2 {
+    width: 55%;
+    font: 20px/1.5 'lato', sans-serif
+  }
+}
+
+
+/* ==================
+
+typography
+
+============== */
+
+.text-white {
+  color: white;
+}
+
+.text-black {
+  color: black;
+}
+
+.text-caps {
+  font-variant: small-caps
+}
+
+.text-underline {
+  text-decoration: underline;
+}
+
+.text-left {
+  text-align: left;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.center-block {
+  margin: 0 auto;
+}
+
+.text-lg {
+  font: 22px/1.5 'lato';
+}
+
+.text-xl {
+  font: 30px/1.5 'lato';
+}
+
+.text-thin {
+  font-weight: 100;
+}
+
+.text-thick {
+  font-weight: 300;
+}
+/* ==================
+
+Main styling
+
+============== */
+h1 {
+  margin-top: 5%;
+  margin-bottom: 5%;
+}
+
+nav {
+  height: 200px;
+  background: rgb(231, 76, 60);
+}
+
+.main-btn {
+  color: white;
+  font-size: 25px;
+  font-weight: 100;
+  font-family: 'lato', sans-serif;
+  height: 70px;
+  width: 70%;
+  border-radius: 10px;
+}
+
+.input-btn {
+  background: rgb(24, 188, 156);
+}
+
+.display-btn {
+  background: rgb(52, 152, 219);
+}
+
+
+
+
