@@ -64,6 +64,7 @@ FORMATTING
   transform: translateY(-50%);
 }
 
+.hidden,
 .desktop-only {
   display: none;
 }
@@ -181,6 +182,7 @@ nav {
 }
 
 .main-btn {
+  position: relative;
   color: white;
   font-size: 25px;
   font-weight: 100;
@@ -188,16 +190,29 @@ nav {
   height: 70px;
   width: 70%;
   border-radius: 10px;
+  transition: 500ms all;
 }
 
-.input-btn {
+.main-btn:hover {
+  opacity: .7;
+}
+
+#input-btn {
   background: rgb(24, 188, 156);
 }
 
-.display-btn {
+#entry-btn {
   background: rgb(52, 152, 219);
 }
 
 
+footer {
+  height: 200px;
+  background: darkolivegreen;
+}
 
-
+#input-sec {
+  background: black;
+  height:200px;
+  margin: 3% 0;
+}
