@@ -106,10 +106,6 @@ FORMATTING
   .col-3-4 {
     width: 75%;
   }
-  h2 {
-    width: 55%;
-    font: 20px/1.5 'lato', sans-serif
-  }
 }
 
 
@@ -151,12 +147,16 @@ typography
   margin: 0 auto;
 }
 
+.text-md {
+  font: 18px/1.5 'lato', sans-serif;
+}
+
 .text-lg {
-  font: 22px/1.5 'lato';
+  font: 22px/1.5 'lato', sans-serif;
 }
 
 .text-xl {
-  font: 30px/1.5 'lato';
+  font: 30px/1.5 'lato', sans-serif;
 }
 
 .text-thin {
@@ -198,21 +198,90 @@ nav {
 }
 
 #input-btn {
-  background: rgb(24, 188, 156);
+  background: rgb(153, 84, 187);
 }
 
 #entry-btn {
   background: rgb(52, 152, 219);
 }
 
-
 footer {
   height: 200px;
   background: darkolivegreen;
 }
 
-#input-sec {
-  background: black;
-  height:200px;
-  margin: 3% 0;
+/* ==================
+
+Form Styling
+
+============== */
+
+.form-sec-margin {
+  margin: 2% 0;
 }
+
+#input-sec {
+  background: rgb(79, 93, 108);
+  padding: 3% 0;
+  color: white;
+}
+
+#main_form h2 {
+  margin-bottom: 3%;
+}
+
+#name_mail {
+  color: white;
+}
+
+#name_mail input {
+  width:85%;
+  height: 40px;
+  font: 300 20px/1.5 'lato';
+  border: none;
+  box-shadow: 0;
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+
+#gender_row label {
+  display: inline-block;
+  width: 30%;
+  margin: 3% 0 0 15%;
+}
+
+#gender_row label:last-child {
+  margin-left: 5%;
+}
+
+#age-row {
+  padding-left: 15%
+}
+
+#age-row input {
+  width: 50%;
+  height: 30px;
+  margin-top: 1%;
+}
+
+#interest-row label {
+  display: inline-block;
+  width: 23%;
+  margin-top: 1%;
+}
+
+#comment {
+  width: 50%;
+  height: 150px;
+  font: 300 20px/1.5 'lato';
+
+}
+
+#btn-submit {
+  background: rgb(24, 188, 156);
+}
+
+#btn-reset {
+  background: rgb(231, 76, 60);
+}
+
