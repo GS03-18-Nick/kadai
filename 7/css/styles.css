@@ -64,7 +64,7 @@ FORMATTING
   transform: translateY(-50%);
 }
 
-.hidden,
+.hidden-sec,
 .desktop-only {
   display: none;
 }
@@ -226,7 +226,7 @@ Form Styling
   color: white;
 }
 
-#main_form h2 {
+#main-form h2 {
   margin-bottom: 3%;
 }
 
@@ -281,7 +281,10 @@ Form Styling
   background: rgb(24, 188, 156);
 }
 
-#btn-reset {
-  background: rgb(231, 76, 60);
+.error-input {
+  box-shadow: inset 0px 0px 5px red;
 }
 
+.btn-warning {
+  background: rgb(231, 76, 60);
+}
