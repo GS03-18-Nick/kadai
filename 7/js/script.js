@@ -10,26 +10,62 @@ $(document).ready(function () {
   6. button to download the csv
   */
 
+  var userInputMap = {};
 
   //toggle btn down and show/hide input-sec
   $('#input-btn').on('click', function () {
-    if ($(this).hasClass('down-btn')) {
-      $(this).animate({
-        top: '-=30px'
-      });
-      $('#input-sec').slideUp();
-      $(this).toggleClass('down-btn');
-    } else {
+    if (!$(this).hasClass('down-btn')) {
+
+      if ($('#entry-btn').hasClass('down-btn')) {
+        $('#entry-btn').animate({
+          top: '-=30px'
+        }).removeClass('down-btn');
+        $('#entry-sec').slideUp();
+      }
+
       $(this).animate({
         top: '+=30px'
-      });
-      $('#input-sec').slideDown();
-      $(this).toggleClass('down-btn');
+      }).addClass('down-btn');
+
+      $('#input-sec').slideDown().addClass('down-sec');
+
+    } else {
+      $(this).animate({
+        top: '-=30px'
+      }).removeClass('down-btn');
+
+      $('#input-sec').slideUp();
     }
   });
 
-  //FORM SUBMISSION
-  var userInputMap = {};
+  //toggle down-btn and show/hide entry-sec
+  $('#entry-btn').on('click', function () {
+    if (!$(this).hasClass('down-btn')) {
+
+      if ($('#input-btn').hasClass('down-btn')) {
+        $('#input-btn').animate({
+          top: '-=30px'
+        }).removeClass('down-btn');
+        $('#input-sec').slideUp();
+      }
+
+      $(this).animate({
+        top: '+=30px'
+      }).addClass('down-btn');
+
+      $('#entry-sec').slideDown().addClass('down-sec');
+
+    } else {
+      $(this).animate({
+        top: '-=30px'
+      }).removeClass('down-btn');
+
+      $('#entry-sec').slideUp().removeClass('down-sec');
+    }
+  });
+
+
+  //FORM submit for error or confirm modal
   $('#btn-submit').on('click', function () {
     var proceed = true;
 
@@ -53,69 +89,91 @@ $(document).ready(function () {
     });
 
     userInputMap.comment = $('textarea').val();
-    
-    
+
+
     //Validation TESTS
     var modalBody = $('#error-modal .modal-body');
     var errorInput = function (a) {
       a.addClass('error-input');
     };
-    
-    
-    if (userInputMap.name.indexOf(" ") === -1 || userInputMap.name.length() < 1) {
+
+    if (userInputMap.name.indexOf(" ") === -1) {
       $(modalBody).append('<p class="text-lg text-thin"> Name ' + userInputMap.name + ': (Include First and last name)</p>');
       errorInput($('#name'));
       proceed = false;
     }
-    
-    if (userInputMap.email.indexOf('@') === -1 || userInputMap.email.indexOf('.') === -1 || userInputMap.email.length() < 5) {
+
+    if (userInputMap.email.indexOf('@') === -1 || userInputMap.email.indexOf('.') === -1) {
       $(modalBody).append('<p class="text-lg text-thin"> Email ' + userInputMap.email + ': (Include valid email)</p>');
       errorInput($('#email'));
       proceed = false;
     }
-    
+
     if (userInputMap.sex === null) {
       $(modalBody).append('<p class="text-lg text-thin"> Select a Gender </p>');
       proceed = false;
     }
-    
+
     if (Number(userInputMap.age) < 10) {
       $(modalBody).append('<p class="text-lg text-thin">Add valid age</p>');
-      errorInput($('#age'))
+      errorInput($('#age'));
       proceed = false;
     }
-    
+
     if (userInputMap["interest[]"][0] === undefined) {
       $(modalBody).append('<p class="text-lg text-thin">Select at least one interest</p>');
       proceed = false;
     }
-    
+
     //Launch CONFIRM or ERROR modal on proceed flag
     if (proceed === false) {
       $('#error-modal').modal();
-      
+
       proceed = true;
-      
+
       $('#error-close').on('click', function () {
         $(modalBody).html("");
       });
-      
-      return;
-      
     } else {
-      //TODO add APPENDED info to .modal-dialog for confirmation
-      //CONfirm and edit button click functions
-      //PHP
+
+      $('#main-form').find('error-input').removeClass('error-input');
+
+      for (var key in userInputMap) {
+        $('#confirm-modal .modal-body ul').append('<li class="text-lg text-thin text-center">' + key + ' : ' + userInputMap[key] + '</li>');
+      };
+
       $('#confirm-modal').modal();
-    }
-    
-    console.log(userInputMap);
-    return userInputMap;
+
+      //FORM SUBMISSION -- write to CSV with PHP, input into entry-sec
+      $('#form-submit').on('click', function () {
+        //close modal
+        $('#confirm-modal').modal('hide');
+        
+        //Set ID of new Table row
+        var userID = userInputMap['name'].split(" ").join("_");
+        
+        //Trying to set date, and failing
+//        var dateMonth = new date.prototype.getMonth();
+//        var dateDay = new date.prototype.getDate();
+//        var dateHour = new date.prototype.getHours();
+//        var dateMin = new date.prototype.getMinutes();
+//
+//        var dateFull = dateMonth + "/" + dateDay + " " + dateHour + ":" + dateMin;
+        
+        //Create new Table row with ID as name
+        var newRow = $('<tr id="' + userID + '"><td>' + 'today' + '</td></tr>');
+        $('thead').append(newRow);
+        for (var key in userInputMap) {
+          $('#' + userID).append('<td>' + userInputMap[key] + '</td>');
+        };
+        
+        $('#confirm-modal .modal-body ul').html('');
+//        $('input, textarea').val('');
+      });
+    };
   });
   //end FORM SUBMIT
 
-  $('#btn-reset').on('click', function () {
-    console.log(userInputMap);
-  });
+
 
 });

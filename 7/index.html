@@ -35,7 +35,8 @@
     <!-- Begin form & confirm modal -->
     <section id="input-sec" class="hidden-sec">
       <div class="container">
-        <form id="main-form" action="<?php htmlspecialchars($_SERVER['PHP_SELF']) ?>" method="post">
+        <!-- Replace # with script.php-->
+        <form id="main-form" action="#">
           <h2 class="text-thin text-xl text-white text-center">Questionaire</h2>
 
           <!-- Name and email row -->
@@ -110,67 +111,69 @@
               <button id="btn-reset" type="reset" class="main-btn btn-warning">Reset</button>
             </div>
           </div>
+
+          <!-- END FORM -->
+
+          <!-- Form confirmation MODAL -->
+          <div class="modal fade" id="confirm-modal" tabindex="-1">
+            <div class="modal-dialog modal-lg">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="text-thin text-xl text-caps text-center">confirm form submission</h2>
+                </div>
+
+                <div class="modal-body">
+                  <ul>
+                  </ul>
+                </div>
+
+                <div class="modal-footer">
+                  <button id="form-edit" type="button" class="main-btn btn-warning" data-dismiss="modal">Edit</button>
+                  <button id="form-submit" type="submit" name="submit" class="main-btn btn-proceed" value="set">Submit</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- FORM ERROR MODAL -->
+          <div class="modal fade" id="error-modal" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h2 class="text-lg text-center text-caps">please correct the following</h2>
+                </div>
+
+                <div class="modal-body">
+                </div>
+
+                <div class="modal-footer">
+                  <button type="button" id="error-close" class="main-btn btn-warning" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
-      <!-- END FORM -->
-
-      <!-- Form confirmation MODAL -->
-      <div class="modal fade" id="confirm-modal" tabindex="-1">
-        <div class="modal-dialog modal-lg">
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h2 class="text-thin text-xl text-caps text-center">confirm form submission</h2>
-
-              <div class="modal-body">
-              </div>
-
-              <div class="modal-footer">
-                <button id="form-edit" type="button" class="main-btn" data-dismiss="modal">Edit</button>
-                <button id="form-submit" type="button" class="main-btn">Submit</button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- FORM ERROR MODAL -->
-      <div class="modal fade" id="error-modal" tabindex="-1">
-        <div class="modal-dialog modal-sm">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h2 class="text-lg text-center text-caps">please correct the following</h2>
-            </div>
-
-            <div class="modal-body">
-            </div>
-
-            <div class="modal-footer">
-              <button type="button" id="error-close" class="main-btn btn-warning" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-        </div>
-      </div>
-
     </section>
 
-    <?php 
-    if (isset('submit')) {
-      //INPUT handling
-      $name = $_POST['name'];
-      $email = $_POST['email'];
-      $age = $_POST['age'];
-      $sex = $_POST['sex'];
-      $interest = $_POST['interest'];
-      $comment = $_POST['comment'];
-      
-      
-    }
-    
-    ?>
-
-      <section id="entry-sec" class="hidden">
+      <section id="entry-sec" class="hidden-sec">
         <div class="container">
+          <table id="entry-table" class="text-caps text-thin">
+            <caption class="text-xl text-thick text-caps">Form Input Entries by Date</caption>
+            <thead>
+              <tr>
+                <th>Date</th>
+                <th colspan="2">Name</th>
+                <th>Email</th>
+                <th>Sex</th>
+                <th>Age</th>
+                <th colspan="2">Interests</th>
+                <th colspan="2">Comments</th>
+              </tr>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
         </div>
       </section>
 

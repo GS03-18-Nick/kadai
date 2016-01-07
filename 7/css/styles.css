@@ -246,8 +246,8 @@ Form Styling
 
 #gender_row label {
   display: inline-block;
-  width: 30%;
-  margin: 3% 0 0 15%;
+  width: 32%;
+  margin: 3% 0 0 10%;
 }
 
 #gender_row label:last-child {
@@ -281,10 +281,64 @@ Form Styling
   background: rgb(24, 188, 156);
 }
 
+#confirm-modal button {
+  width: 45%;
+}
+
 .error-input {
   box-shadow: inset 0px 0px 5px red;
 }
 
 .btn-warning {
   background: rgb(231, 76, 60);
+}
+
+.btn-proceed {
+  background: rgb(24, 188, 156);
+}
+
+
+#entry-sec {
+  height: 300px;
+  background: green;
+}
+
+#entry-table {
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 0 auto;
+  padding-top: 5%;
+  width: 100%;
+}
+
+td,
+th {
+  padding: 10px 15px;
+  vertical-align: middle;
+  text-align: left;
+}
+
+td {
+  border-right: 1px solid #cecfd5;
+  border-bottom: 1px solid #cecfd5;
+}
+
+td:hover {
+  opacity: 0.8;
+}
+
+td:first-child {
+  border-left: 1px solid #cecfd5;
+}
+
+thead {
+  background: #395870;
+  background: linear-gradient(#49708f, #293f50);
+}
+
+#entry-table tr:nth-child(even) {
+  background: #f0f0f2;
+}
+caption {
+  padding-top: 5%;
 }
