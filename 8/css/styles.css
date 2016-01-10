@@ -64,7 +64,7 @@ FORMATTING
   transform: translateY(-50%);
 }
 
-.hidden,
+.hidden-div,
 .desktop-only {
   display: none;
 }
@@ -172,22 +172,27 @@ Main styling
 
 ============== */
 #nav-sec {
+  position: relative;
   background: rgb(231, 76, 60);
-  height: 200px;
+  height: 300px;
   transform-style: preserve-3d;
 }
 
 button {
   display: block;
-  margin: 0 auto;
-  height: 40px;
-  border: none;
-  width: 35%;
-  vertical-align: middle;
   position: relative;
-  top: 50%;
-  transform: translateY(-50%);
+  margin: 0 auto;
+  height: 60px;
+  border: none;
+  width: 80%;
+  vertical-align: middle;
   color: white;
+  transition: 500ms;
+  font: 100 20px/1.5 'lato';
+}
+
+button:hover {
+  opacity: .7;
 }
 
 #btn-login {
