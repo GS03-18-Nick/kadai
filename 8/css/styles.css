@@ -166,9 +166,14 @@ typography
 .text-thick {
   font-weight: 300;
 }
+
+.text-link {
+  
+}
+
 /* ==================
 
-Main styling
+INDEX main styling
 
 ============== */
 #nav-sec {
@@ -225,3 +230,67 @@ div.col-1-2 > input {
   padding: 2% 0;
   background: rgb(24, 188, 156);
 }
+
+/* ==================
+
+Survey.php main styling
+
+============== */
+
+.logout {
+  position: relative;
+  top: 20px;
+  right: 20px;
+  color: rgb(24, 188, 156);
+  transition: 300ms all;
+  text-decoration: underline;
+}
+
+.logout:hover {
+  color: aquamarine;
+  text-decoration: none;
+}
+
+.logout:active {
+  color: firebrick;
+}
+#survey-sec {
+  background: rgb(231, 76, 60);
+  padding: 2% 0;
+}
+
+div.col-1-2 > label  {
+  width: 100%;
+}
+
+div.col-1-2 > label input,
+div.col-1-2 > label select {
+  height: 45px;
+  border: none;
+  transition: 500ms all;
+  width: 80%;
+  margin: 2% 0;
+}
+
+div.col-1-2 > label input:focus {
+  border: inset 2px 2px 2px 2px aquamarine;
+}
+#btn-survey,
+.btn-results {
+  margin: 2% auto;
+  height: 60px;
+  background: rgb(52, 152, 219);
+  transition: 500ms all;
+  color: white;
+  font: 300 20px/60px 'lato';
+}
+
+#btn-survey:hover,
+.btn-results:hover {
+  background: rgb(24, 188, 156);
+}
+
+
+
+
+

@@ -1,4 +1,7 @@
 <?php
+
+session_start();
+
   //1. POSTデータ取得（）
 $first = $_POST["firstname"];
 $last = $_POST["lastname"];
@@ -16,7 +19,7 @@ $password = $_POST["newpass"];
 
 
   //３．データ登録SQL作成
-  $stmt = $pdo->prepare("INSERT INTO kadai (id, firstname, lastname, email, password, datenow) VALUES(NULL, :a1, :a2, :a3, :a4)");
+  $stmt = $pdo->prepare("INSERT INTO kadai (id, firstname, lastname, email, password) VALUES(NULL, :a1, :a2, :a3, :a4)");
   $stmt->bindValue(':a1', $first);
   $stmt->bindValue(':a2', $last);
   $stmt->bindValue(':a3', $email);
@@ -28,13 +31,11 @@ $password = $_POST["newpass"];
   if($status == false){
     //Errorの場合$status=falseとなり、エラー表示
     $_SESSION['message'] = 'Account creation failed, please try again';
-    header ("Location: index.php");
-    echo "SQLエラー";
-    exit;
+    header("Location: index.php");
+    
   } else {
     //５．index.phpへリダイレクト
-    $_SESSION['message'] = 'Account created! Please login below'
+    $_SESSION['message'] = 'Account created! Please login below';
     header("Location: index.php");
-    exit;
   }
 ?>

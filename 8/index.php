@@ -18,7 +18,7 @@ survey page submitting to results
   <title>Nick Smith | Questionnaire</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <script src="js/jquery-2.1.3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="js/MODALONLYbootstrap.min.js"></script>
 
   <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,300italic,400italic' rel='stylesheet' type='text/css'>
@@ -36,10 +36,11 @@ survey page submitting to results
 
       <!-- Success or Error message from account creation -->
       <?php
-if (isset($_SESSION['message'])) {
-  echo '<p class="text-center text-lg text-thick text-white">'.$_SESSION['message'].'</p>';
-  unset($_SESSION['message']);
-} ?>
+      if (isset($_SESSION['message'])) {
+        echo '<p class="text-center text-lg text-thick text-white">'.$_SESSION['message'].'</p>';
+        unset($_SESSION['message']);
+      }
+      ?>
 
         <div class="container vertical-center">
           <div class="row">

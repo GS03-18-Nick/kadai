@@ -6,7 +6,7 @@
   <title>Survey</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <script src="js/jquery-2.1.3.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
   <script src="js/MODALONLYbootstrap.min.js"></script>
 
   <link href='https://fonts.googleapis.com/css?family=Lato:400,100,300,300italic,400italic' rel='stylesheet' type='text/css'>
@@ -15,36 +15,40 @@
   <link rel="stylesheet" href="css/styles.css">
 </head>
 
-<?php session_start(); 
-  
-  $username = $_SESSION['fname'].' '.$_SESSION['lname'];
-  
+<?php 
+  session_start(); 
+  $username = $_SESSION['name'];
   ?>
 
   <body>
-    
-<!--    Greeting Section-->
-    <section>
+
+    <!--    Greeting Section-->
+    <section id="survey-sec">
       <div class="container">
         <div class="logout">
-          <a href="index.php">Not <?=$username?>? Logout here</a>
+          <a class="text-thick text-md text-left text-link" href="index.php">Not <?=$username?>? Logout here</a>
+          <a href="survey-table.php">See Table</a>
         </div>
-        <h1><?=$username?></h1>
-        <h1>Welcome to the Survey!</h1>
+        <h1 class="text-xl text-center text-thin"><?=$username?></h1>
+        <h2 class="text-lg text-center">Welcome to the Survey!</h2>
+
+        <h2><?php if (isset($_SESSION['fail'])) {
+  echo $_SESSION['fail'];
+} ?></h2>
       </div>
-      
-<!--      The Survey-->
+
+      <!--      The Survey-->
       <div class="container">
         <form action="results.php" method="post">
           <div class="row">
             <div class="col col-1-2">
-              <label>Whats your favorite fish?
-                <input type="number" placeholder="Age" name="fish" required>
+              <label class="center-block text-lg text-thick">Whats your favorite fish?
+                <input type="text" placeholder="Fish name" name="fish">
               </label>
             </div>
             <div class="col col-1-2">
-              <label>What kind of pet do you prefer?
-                <input type="text" placeholder="Enter Animal" name="pet" list="boners" required>
+              <label class="center-block text-lg text-thick">What kind of pet do you prefer?
+                <input type="text" placeholder="Enter Animal" name="pet" list="boners">
                 <datalist id="boners">
                   <option value="Cats"></option>
                   <option value="Dogs"></option>
@@ -56,8 +60,8 @@
           </div>
           <div class="row">
             <div class="col col-1-2">
-              <label>Birthplace
-                <select name="hometown" required>
+              <label class="center-block text-lg text-thick">Birthplace
+                <select name="hometown">
                   <option value="" selected>都道府県</option>
                   <option value="北海道">北海道</option>
                   <option value="青森県">青森県</option>
@@ -110,7 +114,11 @@
               </label>
             </div>
             <div class="col col-1-2">
-              <div class="checkbox_group">
+              <label class="center-block text-lg text-thick">Fav starwars?
+                <input type="text" name="starwars">
+              </label>
+
+              <!--
                 <p>Favorite Star Wars Set?</p>
                 <label>Episode 1-3
                   <input type="checkbox" value="1-3" name="starwars">
@@ -118,7 +126,7 @@
                 <label>Episode 4-6
                   <input type="checkbox" value="4-6" name="starwars">
                 </label>
-              </div>
+-->
             </div>
             <div class="col col-1-2">
               <button type="submit" id="btn-survey">Reply to survey</button>
@@ -126,8 +134,23 @@
           </div>
         </form>
       </div>
-    </section>
 
+
+      <div class="container">
+        <?php 
+  if (isset($_SESSION['success'])) {
+    $success = $_SESSION['success'];
+    $button = '<a href="results.php" class="btn-results">Go to results</a>';
+  }
+      ?>
+
+          <h1 class="text-xl text-thin text-center"><?php if(isset($success)) {echo $success;} ?></h1>
+          <div>
+            <?php if(isset($button)) {echo $button;} ?>
+          </div>
+      </div>
+    </section>
+    <?php unset($_SESSION['success']); unset($_SESSION['fail']); ?>
   </body>
 
 </html>
