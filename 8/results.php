@@ -1,4 +1,3 @@
-
 <?php 
   session_start(); 
   $current_user = $_SESSION['current_user'];
@@ -8,22 +7,28 @@
   $pet = $_POST['pet'];
   $hometown = $_POST['hometown'];
   $starwars = $_POST['starwars'];
-  
+
   //Connect to mySQL
-  $server = 'localhost';
-  $username = 'root';
-  $password = ""; 
-  $db = 'kadai';
-  $conn = new mysqli($server, $username, $password, $db);
+  $dsn = 'mysql:dbname=kadai;host=localhost;charset=utf8';
+  $user = 'root';
+  $password = ''; 
+
+  try {
+    $conn = new PDO($dsn, $user, $password);
+  } catch (PDOException $error) {
+    $_SESSION['message'] = 'Connection error ' . $error;
+  }
 
 //UPDATE command
-  $sql = "UPDATE kadai SET fish='$fish', pet='$pet', hometown='$hometown', starwars='$starwars' WHERE id=$current_user";
+  $sql = "UPDATE kadai SET fish=:a1, pet=:a2, hometown=:a3, starwars=:a4, datenow=sysdate() WHERE id=$current_user";
+  $stmt = $conn->prepare($sql);
+  $stmt->bindValue(':a1', $fish);
+  $stmt->bindValue(':a2', $pet);
+  $stmt->bindValue(':a3', $hometown);
+  $stmt->bindValue(':a4', $starwars);
+
   
-  $result = $conn->query($sql);
-  
-  
-  
-  if ($result === true) {
+  if ($result = $stmt->execute()) {
     $_SESSION['success'] = "Survey Successful!";
     header('Location: survey.php');
   } else {
@@ -31,5 +36,5 @@
     header('Location: survey.php');
   }
   
-$conn->close();//this may be a BIG mistake HERE
+$conn = null;//this may be a BIG mistake HERE
   ?>

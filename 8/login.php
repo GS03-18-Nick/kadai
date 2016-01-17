@@ -5,37 +5,43 @@ session_start();
 //to set variables that can be accessed from anywhere on the PAGE!
 
 //get userlogin and password
-$login = stripslashes($_POST["login"]); 
+$login = $_POST["login"]; 
+$pass = $_POST["password"]; 
 
-$pass = stripslashes($_POST["password"]); 
+$dsn = 'mysql:dbname=kadai;host=localhost;charset=utf8';
+$user = 'root';
+$password = '';
 
-$servername = "localhost";
-$username = "root";
-$password = "";
-$dbname = "kadai";
 
 // Create connection
-$conn = new mysqli($servername, $username, $password, $dbname);
-// Check connection
-if ($conn->connect_error) {
-  $_SESSION['message'] = 'Error connecting to database, please try again';
-  header('Location: index.php');
-} 
+try {
+    $conn = new PDO($dsn, $user, $password);
+} catch (PDOException $e) {
+    $_SESSION['message'] = 'Connection failed: ' . $e->getMessage();
+    header('Location: index.php');
+}
 
-$sql = "SELECT * FROM kadai WHERE email='$login' AND password='$pass'";
-$result = $conn->query($sql);
+$sql = "SELECT * FROM kadai WHERE email=:a1 AND password=:a2";
+$stmt = $conn->prepare($sql);
+$stmt->bindValue(':a1', $login);
+$stmt->bindValue(':a2', $pass);
 
-if ($result->num_rows > 0) {
-    // output data of each row
-  while($row = $result->fetch_assoc()) {
-    $_SESSION['name'] = $row['firstname']." ".$row['lastname'];
-    $_SESSION['current_user'] = $row['ID'];
-    header('Location: survey.php');
+if ($result = $stmt->execute()) {
+    
+  // output data of each row
+  $row = $stmt->fetch(PDO::FETCH_ASSOC);
+    if ($row['ID'] != null) {
+      $_SESSION['name'] = $row['firstname']." ".$row['lastname'];
+      $_SESSION['current_user'] = $row['ID'];
+      header('Location: survey.php');
+    } else {
+      $_SESSION['message'] = 'Enter valid username and password';
+      header('Location: index.php');
     }
 } else {
-  $_SESSION['message'] = 'Login failed, please use valid Email and Password';
+  $_SESSION['message'] = 'SQL Error';
   header('Location: index.php');
 }
 
-$conn->close();
+$conn = null;
 ?>

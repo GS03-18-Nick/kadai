@@ -1,3 +1,7 @@
+<?php
+session_start();
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,42 +18,56 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-  
-  <body>
-    <section>
-      <div class="container">
-        <?php
-        /* connect to the db */
-        $server = 'localhost';
-        $username = 'root';
-        $pw = '';
-        $db = 'kadai';
-        
-        $conn = new mysqli($server, $username, $pw, $db);
-        
-/* show tables */
-        $result = $conn->query('SHOW TABLES') or die('cannot show tables');
-        while($tableName = mysqli_fetch_row($result)) {
 
-	       $table = $tableName[0];
-	
-	       echo '<h3>',$table,'</h3>';
-	       $result2 = $conn->query('SHOW COLUMNS FROM '.$table) or die('cannot show columns from '.$table);
-	       if(mysqli_num_rows($result2)) {
-		      echo '<table cellpadding="0" cellspacing="0" class="db-table">';
-		      echo '<tr><th>Field</th><th>Type</th><th>Null</th><th>Key</th><th>Default<th>Extra</th></tr>';
-		        while($row2 = mysqli_fetch_row($result2)) {
-			     echo '<tr>';
-			     foreach($row2 as $key=>$value) {
-				    echo '<td>',$value,'</td>';
-			     }
-			echo '</tr>';
-		}
-		echo '</table><br />';
-	}
-}
-        
-        ?>
-      </div>
-  </body>
+<body>
+  <section>
+    <div class="container">
+      <?php       
+      //Connect to mySQL
+      $dsn = "mysql:dbname=kadai;host=localhost;charset=utf8";
+      $user = "root";
+      $password = '';
+      
+      try {
+        $conn = new PDO($dsn, $user, $password);
+      } catch (PDOException $e) {
+        echo 'Error'.$e;
+      }
+      
+      //SQL command
+      $sql = 'SHOW COLUMNS FROM kadai';
+      $stmt = $conn->prepare($sql);
+      
+      //Get table headers
+      if ($result = $stmt->execute()) {
+        echo '<table><thead><tr>';
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          echo '<th>'.$row['Field'].'</th>';
+        }
+        echo '<th>変更</th>';
+        echo '</tr></thead>';
+      } else {
+        echo "error";
+      }
+      
+      //get table information
+      $sql = "SELECT * FROM kadai";
+      $stmt = $conn->prepare($sql);
+      
+      if ($result = $stmt->execute()) {
+        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+          $current_user = $row['ID'];
+          echo '<tr><td>' . $row['ID'] . '</td><td>' . $row['firstname'] . '</td><td>' . $row['lastname'] . '</td><td>' . $row['email'] . '</td><td>' . $row['password'] . '</td><td>' . $row['fish'] . '</td><td>' . $row['pet'] . '</td><td>' . $row['hometown'] . '</td><td>' . $row['starwars'] . '</td><td>' . $row['datenow'] . '</td><td><a href="#" id="'.$current_user.'">変更</a>'.'</td></tr>'; 
+        }
+      } else {
+        echo 'error';
+      }
+      
+      
+      $conn = null;
+  ?>
+    </div>
+    <script src="henko.js"></script>
+</body>
+
 </html>

@@ -140,7 +140,7 @@
         <?php 
   if (isset($_SESSION['success'])) {
     $success = $_SESSION['success'];
-    $button = '<a href="results.php" class="btn-results">Go to results</a>';
+    $button = '<a href="survey-table.php" class="btn-results">Go to results</a>';
   }
       ?>
 
