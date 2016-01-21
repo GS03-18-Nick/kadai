@@ -21,6 +21,11 @@ session_start();
 
 <body>
   <section>
+      <?php if( isset( $_POST['mydata'] ) ) {
+        echo 'its real!';
+      } else {
+    echo ' '; 
+} ?>
     <div class="container">
       <?php       
       //Connect to mySQL
@@ -55,10 +60,24 @@ session_start();
       $stmt = $conn->prepare($sql);
       
       if ($result = $stmt->execute()) {
-        while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
-          $current_user = $row['ID'];
-          echo '<tr><td>' . $row['ID'] . '</td><td>' . $row['firstname'] . '</td><td>' . $row['lastname'] . '</td><td>' . $row['email'] . '</td><td>' . $row['password'] . '</td><td>' . $row['fish'] . '</td><td>' . $row['pet'] . '</td><td>' . $row['hometown'] . '</td><td>' . $row['starwars'] . '</td><td>' . $row['datenow'] . '</td><td><a href="#" id="'.$current_user.'">変更</a>'.'</td></tr>'; 
+        $row = $stmt->fetchAll(PDO::FETCH_OBJ);
+          foreach( $row as $a ) {
+          echo "<tr>
+                <td data-table-id='ID'>{$a->ID}</td>
+                <td data-table-id='firstname'>{$a->firstname}</td>
+                <td data-table-id='lastname'>{$a->lastname}</td>
+                <td data-table-id='email'>{$a->email}</td>
+                <td data-table-id='password'>{$a->password}</td>
+                <td data-table-id='fish'>{$a->fish}</td>
+                <td data-table-id='pet'>{$a->pet}</td>
+                <td data-table-id='hometown'>{$a->hometown}</td>
+                <td data-table-id='starwars'>{$a->starwars}</td>
+                <td data-table-id='datenow'>{$a->datenow}</td>
+                <td data-table-id='change'>
+                  <a href='#' id='{$a->ID}'>変更</a></td>
+                </tr>";
         }
+      
       } else {
         echo 'error';
       }
@@ -67,7 +86,7 @@ session_start();
       $conn = null;
   ?>
     </div>
-    <script src="henko.js"></script>
+    <script src="js/henko.js"></script>
 </body>
 
 </html>

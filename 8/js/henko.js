@@ -40,15 +40,27 @@ $(document).ready(function () {
       $(event.target).text('保存');
     } //END if <a> does not have open
     else {
+      var currentData = {}
       //switch back to <td> delete <inputs>
       tableRow.find('input').each(function () {
-        var currentVal = $(this).val();
+        var currentKey = $(this).closest('td').data('tableId'),
+            currentVal = $(this).val();
         $(this).parent().text(currentVal);
         $(this).remove();
+        currentData[currentKey] = currentVal;
       });
-
+      currentData['init'] = true;
       //switch <a> text
       $(event.target).text('変更');
+      $.ajax({
+        url: 'update.php',
+        type: 'POST',
+        data: {mydata:currentData},
+        success: function () {
+          console.log(currentData);
+      }
+      });
     }
   });
+  
 });
